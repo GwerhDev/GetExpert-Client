@@ -1,0 +1,351 @@
+<div class="animate__animated animate__fadeIn">
+  <div *ngIf="previewActive" class="user-profile-container">
+    <app-user-profile [mediaArray]="mediaArray" [companyArray]="companyArray" [institutionArray]="institutionArray" [show]="previewActive">
+      <div class="row align-items-center mb-4">
+        <div class="col">
+          <button class="btn px-0 text-blue" (click)="previewActive = false">
+            <i class="bi bi-arrow-left me-2"></i>
+            VOLVER
+          </button>
+        </div>
+      </div>
+    </app-user-profile>
+  </div>
+
+  <div class="row align-items-center mb-3 p-4">
+    <div class="col">
+      <h3>Perfil de experta</h3>
+    </div>
+  </div>
+
+  <div *ngIf="showAlert" class="alert bg-blue mb-5 text-white py-4" style="font-size: .9em;">
+    <div class="row">
+      <div class="col">{{alertMessage}}</div>
+      <div class="col text-end">
+        <span class="me-4 button-alert" [routerLink]="[alertRoute]" >{{alertTextRouter}}</span>
+        <span ><i (click)="dismiss()" class="bi bi-x-lg"></i></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row border-0 p-4 cont-expert-info">
+    <div class="col">
+
+      <div class="row">
+        <div class="col-12 col-md-4">
+          <button class="btn text-primary mb-1" (click)="showPreview()">
+            <i class="bi bi-eye"></i> Previsualizar
+          </button>
+          <div class="profile-img profile-cont">
+            <div class="profile-cont-int">
+              <img *ngIf="!profilePic" src="./assets/svg/icon-img.svg" width="100%" alt="icon-image">
+              <img *ngIf="profilePic" [src]="profilePic" alt="Profile Picture" width="250px">
+            </div>
+            <div *ngIf="editionInfoActive" class="edit-img-cont">
+              <p *ngIf="editionInfoActive" class="mt-3">Arrastra o <span class="text-primary">selecciona</span><br/> tu foto de perfil</p>
+              <div class="upload-cont">
+                <button *ngIf="editionInfoActive" class="btn btn-outline-primary mt-2 btn-sm py-0">
+                  <input type="file" (change)="handlePicFileInput($event)">
+                  CARGAR
+                </button>
+                <span *ngIf="editionInfoActive" class="support-format">Soporta .jpg y .png</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col">
+          <div class="mb-5">
+            <div class="row mb-3">
+              <div class="text-end div-button-preview">
+                <p class="card-title text-blue">Información de contacto</p>
+                <div class="btn-cont d-flex" *ngIf="showEditButtons">
+                  <div class="btn-edit" *ngIf="!editionInfoActive">
+                    <button (click)="editInfo()" class="btn btn-outline-primary btn-sm py-0">EDITAR</button>
+                  </div>
+                  <div class="btn-edit" *ngIf="editionInfoActive">
+                    <button (click)="updateInfo()" class="btn btn-outline-primary btn-sm py-0">GUARDAR CAMBIOS</button>
+                  </div>
+                  <div class="btn-edit" *ngIf="editionInfoActive">
+                    <button (click)="cancelEditInfo()" class="btn btn-outline-primary btn-sm py-0">CANCELAR</button>
+                  </div>       
+                </div>
+              </div>
+            </div>
+
+            <hr />
+
+            <div class="row mt-5">
+              <div class="col-12 col-md-6 mb-5">
+                <div class="form-field">
+                  <label for="usernameEdit" class="form-label">Nombre</label>
+                  <input [value]="username" disabled *ngIf="!editionInfoActive" type="text" class="form-control" id="usernameEdit" #usernameEdit [style]="editionInfoActive? 'background-color: rgb(210, 236, 226);': 'background-color: #F2F2F2;'">
+                  <input [value]="editUsernameText" *ngIf="editionInfoActive" type="text" class="form-control" id="usernameEdit" #usernameEdit [style]="editionInfoActive? 'background-color: rgb(210, 236, 226);': 'background-color: #F2F2F2;'">
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="form-field">
+                  <label for="email" class="form-label">Correo electrónico</label>
+                  <input [value]="email" disabled type="text" class="form-control" id="email" style="background-color: #F2F2F2;">
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-5">
+              <div class="col-12 col-md-6 mb-5">
+                <div *ngIf="!editionInfoActive" class="form-field">
+                  <label for="university" class="form-label">Universidad</label>
+                  <input *ngIf="institution" [value]="institution[0]?.name" disabled type="text" class="form-control" id="university" [style]="editionInfoActive? 'background-color: rgb(210, 236, 226);': 'background-color: #F2F2F2;'">
+                </div>
+                <div *ngIf="editionInfoActive">
+                  <div class="form-field edition-select">
+                    <label for="university" class="form-label">Universidad</label>
+                    <select class="form-select" >
+                      <option *ngFor="let option of institutionList">{{option?.name}}</option>
+                    </select>
+                  </div>
+                  <div class="expertise-wrapper mt-2">
+                    <ng-container *ngFor="let item of institution; let i = index">
+                      <div draggable="true" *ngIf="item" [id]="'institution-handler-' + (i+1)" class="btn-primary btn selection-cont">{{item?.name}}</div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div *ngIf="!editionInfoActive" class="form-field">
+                  <label for="mediaExpirience" class="form-label">Experiencia en medios</label>
+                  <input *ngIf="media" [value]="media[0]?.name" disabled type="text" class="form-control" id="mediaExpirience" [style]="editionInfoActive? 'background-color: rgb(210, 236, 226);': 'background-color: #F2F2F2;'">
+                </div>
+                <div *ngIf="editionInfoActive">
+                  <div class="form-field edition-select">
+                    <label for="mediaExperience" class="form-label">Experiencia en medios</label>
+                    <select class="form-select" >
+                      <option *ngFor="let option of mediaList">{{option?.name}}</option>
+                    </select>
+                  </div>
+                  <div class="expertise-wrapper mt-2">
+                    <ng-container *ngFor="let item of media; let i = index">
+                      <div draggable="true" *ngIf="item" [id]="'media-handler-' + (i+1)" class="btn-primary btn selection-cont">{{item?.name}}</div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col">
+            <div class="mb-5">
+              <div class="row align-items-center mb-3">
+                <div class="text-end div-button-preview">
+                  <p class="card-title text-blue">About</p>
+                  <div class="btn-cont d-flex" *ngIf="showEditButtons">
+                    <div class="btn-edit" *ngIf="!editionAboutActive">
+                      <button (click)="editAbout()" class="btn btn-outline-primary btn-sm py-0">EDITAR</button>
+                    </div>
+                    <div class="btn-edit" *ngIf="editionAboutActive">
+                      <button (click)="updateAbout()" class="btn btn-outline-primary btn-sm py-0">GUARDAR CAMBIOS</button>
+                    </div>
+                    <div class="btn-edit" *ngIf="editionAboutActive">
+                      <button (click)="cancelEditAbout()" class="btn btn-outline-primary btn-sm py-0">CANCELAR</button>
+                    </div>       
+                  </div>
+                </div>
+              </div>
+
+            <hr />
+
+            <h2 *ngIf="!editionAboutActive" class="text-blue fw-normal">{{name? name : ''}}</h2>
+            <h2>
+              <textarea *ngIf="editionAboutActive" class="input-edit" [value]="editAboutText" id="aboutEdit" #aboutEdit></textarea>
+            </h2>
+          </div>
+
+          <div class="col">
+            <div class="mb-5">
+              <div class="row align-items-center mb-3">
+                <div class="text-end div-button-preview">
+                  <p class="card-title text-blue">Biografía</p>
+                  <div class="btn-cont d-flex" *ngIf="showEditButtons">
+                    <div class="btn-edit" *ngIf="!editionBioActive">
+                      <button (click)="editBio()" class="btn btn-outline-primary btn-sm py-0">EDITAR</button>
+                    </div>
+                    <div class="btn-edit" *ngIf="editionBioActive">
+                      <button (click)="updateBio()" class="btn btn-outline-primary btn-sm py-0">GUARDAR CAMBIOS</button>
+                    </div>
+                    <div class="btn-edit" *ngIf="editionBioActive">
+                      <button (click)="cancelEditBio()" class="btn btn-outline-primary btn-sm py-0">CANCELAR</button>
+                    </div>       
+                  </div>
+                </div>
+              </div>
+
+              <hr />
+
+              <p *ngIf="!editionBioActive">{{bio}}</p>
+              <p>
+                <textarea *ngIf="editionBioActive" class="input-edit" [value]="editBioText" id="bioEdit" #bioEdit></textarea>
+              </p>
+            </div>
+
+            <div class="mb-5">
+              <div class="row align-items-center mb-3">
+                <div class="col">
+                  <p class="card-title text-blue mb-0">Áreas de expertise</p>
+                </div>
+                <div class="col text-end" *ngIf="showEditButtons">
+                  <button (click)="setNum(2)" [routerLink]="['/expert/register-info']" class="btn btn-outline-primary btn-sm py-0 me-2">EDITAR</button>
+                  <button (click)="setNum(2)" [routerLink]="['/expert/register-info']" class="btn btn-outline-primary btn-sm py-0">AGREGAR</button>
+                </div>
+              </div>
+
+            <hr />
+
+            <div class="expertise-wrapper">
+              <ng-container *ngFor="let item of area; let i = index">
+                <div *ngIf="item" [id]="'area-handler-' + (i+1)" class="expertise-item">#{{item?.name}}</div>
+              </ng-container>
+            </div>
+
+          </div>
+
+          <div class="mb-5">
+            <div class="row align-items-center mb-3">
+              <div class="col">
+                <p class="card-title text-blue mb-0">Experiencia</p>
+              </div>
+              <div class="col text-end" *ngIf="showEditButtons">
+                <button (click)="setNum(3)" [routerLink]="['/expert/register-info']" class="btn btn-outline-primary btn-sm py-0 me-2">EDITAR</button>
+                <button (click)="setNum(3)" [routerLink]="['/expert/register-info']" class="btn btn-outline-primary btn-sm py-0">AGREGAR</button>
+              </div>
+            </div>
+
+            <hr />
+
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <div class="mb-3" *ngFor="let exp of experience">
+                  <p *ngIf="exp.position" class="mb-0 text-blue fw-medium">{{exp.position}}</p>
+                  <p *ngIf="exp.company || exp.since || exp.until">{{exp?.company?? '[empresa]'}} | {{exp?.since?? '[desde]'}} - {{exp?.until?? '[hasta]'}}, {{exp?.country?? '[país]'}}</p>
+                </div>
+<!--                 <div class="mb-3">
+                  <p class="mb-0 text-blue fw-medium">MBA en control de incendios</p>
+                  <p>2021 UM - Madrid, España.</p>
+                </div> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-5">
+            <div class="row align-items-center mb-3">
+              <div class="col">
+                <p class="card-title text-blue mb-0">Educación</p>
+              </div>
+              <div class="col text-end" *ngIf="showEditButtons">
+                <button (click)="editEducation()" class="btn btn-outline-primary btn-sm py-0 me-2">EDITAR</button>
+                <button (click)="setNum(3)" [routerLink]="['/expert/register-info']" class="btn btn-outline-primary btn-sm py-0">AGREGAR</button>
+              </div>
+            </div>
+
+            <hr />
+
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <div class="mb-3" *ngFor="let ed of education">
+                  <p *ngIf="ed.career" class="mb-0 text-blue fw-medium">
+<!--                     <input *ngIf="editionEducationActive" class="form-control" type="text">
+ -->                    
+                    {{ed.career}}
+                  </p>
+                  <p *ngIf="ed?.institution || ed.since || ed.until">{{ed?.institution?? '[institución]'}} | {{ed?.since?? '[desde]'}} - {{ed?.until?? '[hasta]'}}, {{ed?.country?? '[país]'}}</p>
+                </div>
+<!--                 <div class="mb-3">
+                  <p class="mb-0 text-blue fw-medium">MBA en control de incendios</p>
+                  <p>2021 UM - Madrid, España.</p>
+                </div> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-5">
+            <div class="row align-items-center mb-3">
+              <div class="col">
+                <p class="card-title text-blue mb-0">Redes sociales</p>
+              </div>
+              <div class="col text-end" *ngIf="showEditButtons">
+                <button (click)="setNum(3)" [routerLink]="['/expert/register-info']" class="btn btn-outline-primary btn-sm py-0 me-2">EDITAR</button>
+                <button (click)="setNum(3)" [routerLink]="['/expert/register-info']" class="btn btn-outline-primary btn-sm py-0">AGREGAR</button>
+              </div>
+            </div>
+
+            <hr />
+
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <ul class="social-network-list">
+                  <li>
+                    <a [href]="network?.linkedin" *ngIf="network?.linkedin" target="_blank" rel="noopener noreferrer">
+                      <i class="bi bi-linkedin"></i> Linkedin
+                    </a>
+                  </li>
+                  <li>
+                    <a [href]="network?.medium" *ngIf="network?.medium" target="_blank" rel="noopener noreferrer">
+                      <i class="bi bi-medium"></i> Medium
+                    </a>
+                  </li>
+                  <li>
+                    <a [href]="network?.twitter" *ngIf="network?.twitter" target="_blank" rel="noopener noreferrer">
+                      <i class="bi bi-twitter"></i> Twitter
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-5">
+            <div class="row align-items-center mb-3">
+              <div class="col">
+                <p class="card-title text-blue mb-0">Evidencias</p>
+              </div>
+              <div class="col text-end" *ngIf="showEditButtons">
+                <button *ngIf="!editionEvidenceActive" (click)="editEvidence()" class="btn btn-outline-primary btn-sm py-0 me-2">EDITAR</button>
+                <button *ngIf="!editionEvidenceActive" (click)="setNum(5)" class="btn btn-outline-primary btn-sm py-0">AGREGAR</button>
+                <button *ngIf="editionEvidenceActive" (click)="updateEvidence()" class="btn btn-outline-primary btn-sm py-0 me-2">GUARDAR CAMBIOS</button>
+                <button *ngIf="editionEvidenceActive" (click)="cancelEditEvidence()" class="btn btn-outline-primary btn-sm py-0 me-2">CANCELAR</button>
+              </div>
+            </div>
+
+            <hr />
+
+            <div class="row">
+              <div class="col-12">
+                <div class="card border-0 bg-white rounded-3 mb-3" *ngFor="let ev of evidence, let i = index" style="width: 18rem;">
+                  <div class="card-body">
+                    <div class="evidence-photo-cont-init">
+                      <img class="img-fluid rounded-1 w-100" [src]="ev.photo? ev.photo : './assets/svg/icon-img.svg'" alt="image">
+                    </div>
+                    <div *ngIf="editionEvidenceActive" class="d-flex mt-2">
+                        <input type="file" class="form-control" (change)="handleEvidenceFileInput($event, i)">
+                    </div>
+                    <div class="tags mb-3 mt-2">
+                      <span class="badge">{{ev.type}}</span>
+                    </div>
+                    <h5 *ngIf="!editionEvidenceActive" class="card-title text-blue">{{ev.title}}</h5>
+                    <h5 *ngIf="editionEvidenceActive">
+                      <input class="form-control" [value]="editEvidenceTitle" type="text" id="evidenceTitleEdit" #evidenceTitleEdit>
+                    </h5>
+                    <p *ngIf="!editionEvidenceActive" class="card-text mb-5">{{ev.description}}</p>
+                    <p *ngIf="editionEvidenceActive">
+                      <textarea class="form-control" [value]="editEvidenceDescription" id="evidenceDescriptionEdit" #evidenceDescriptionEdit></textarea>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

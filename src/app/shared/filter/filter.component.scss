@@ -1,0 +1,63 @@
+.filter-wrapper {
+  display: flex;
+  gap: 1em;
+  .filters {
+    background-color: #ffffff;
+    padding: 0.75em 1em;
+    border-radius: 6px;
+    color: #727272;
+    flex-grow: 1;
+    align-items: center;
+    input {
+      font-size: .9em;
+      font-weight: 350;
+    }
+    .form-control-plaintext {
+      font-weight: 400;
+    }
+    .row {
+      & div {
+        position: relative;
+        &::after {
+          content: "";
+          height: 80%;
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          margin: auto;
+          border-right: 1px solid #d6d6d6;
+        }
+        &:last-child {
+          &::after {
+            border: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+.form-control {
+  border-radius: 0;
+  &:focus {
+    background-color: #ffffff;
+  }
+}
+
+@media (max-width: 767.98px) {
+
+  .filter-wrapper {
+    flex-direction: column;
+    .filters {
+      padding: 2em 0;
+      .row {
+        & div {
+          &::after {
+            border: 0;
+          }
+        }
+      }
+    }
+  }
+}

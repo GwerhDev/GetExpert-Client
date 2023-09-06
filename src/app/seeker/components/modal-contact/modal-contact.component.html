@@ -1,0 +1,51 @@
+<div
+  class="modal fade"
+  tabindex="-1"
+  [ngClass]="{'show': isOpen}"
+  [ngStyle]="{'display': isOpen ? 'block' : 'none'}"
+  >
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 p-4 pt-0">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 text-primary pt-5">¡Experta agregada a tu solicitud!</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="dismiss()"
+          ></button>
+      </div>
+      <div class="modal-body">
+        <p class="text-blue fw-medium">Te contactarás con:</p>
+
+        <div class="user-item">
+          <div class="thumb">
+            <img [src]="expertData?.profilePic" alt="">
+          </div>
+          <div class="info">
+            <p class="m-0 fs-5 text-blue">{{expertData?.username}}</p>
+            <p class="m-0 fw-light">{{expertData?.profession[0]}} / {{expertData?.education[0]}}</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer pt-4">
+        <button
+          type="button"
+          class="btn btn-secondary text-primary"
+          (click)="addContact()"
+          >
+          Agregar más experts
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary text-white px-4 py-3"
+          (click)="sendRequest()"
+          >
+          Enviar solicitud
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

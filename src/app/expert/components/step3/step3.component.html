@@ -1,0 +1,140 @@
+<div class="animate__animated animate__fadeIn">
+  <h1 class="text-blue">Experiencia y estudios</h1>
+  <p class="mb-4">Esta información hace tu perfil mas personalizado y nos ayuda a conectarte con más personas</p>
+
+  <p class="fw-semibold mb-4">1. Agrega experiencia laboral</p>
+  <div class="added-list">
+    <div *ngFor="let item of [].constructor(counterExperience), let i = index">
+      <div class="item mb-5">
+        <div class="icon"><img src="./assets/svg/icon-briefcase.svg" alt=""></div>
+        <div class="info">
+          <p *ngIf="experiencePosition[i] || experienceCompany[i]" class="text-blue">{{ experiencePosition[i] }} / {{ experienceCompany[i] }}</p>
+          <p *ngIf="experienceCountry[i] || experienceSince[i] || experienceUntil[i]">{{ experienceCountry[i] }}, {{ experienceSince[i] }} - {{ experienceUntil[i] }}</p>
+        </div>
+      </div>
+      
+      <div class="row mb-4">
+        <div class="col-12 col-md-6 mb-4">
+          <div class="form-field">
+            <label for="position" class="form-label">Cargo</label>
+            <input type="text" class="form-control" id="position" (change)="addExperiencePositionData($event, i)" [(ngModel)]="experiencePosition[i]" #experiencePositionInput>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-field">
+            <label for="company" class="form-label">Empresa</label>
+            <input type="text" class="form-select" (change)="addExperienceCompanyData($event, i)" [(ngModel)]="experienceCompany[i]" #experienceCompanyInput>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-12 col-md-6 mb-4">
+          <div class="form-field">
+            <label for="country" class="form-label">País</label>
+            <input type="text" class="form-control" id="country" (change)="addExperienceCountryData($event, i)" [(ngModel)]="experienceCountry[i]" #experienceCountryInput>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-field">
+            <label for="name" class="form-label">Desde</label>
+            <div class="input-group">
+              <input type="number" min="1900" class="form-control bg-transparent" (change)="addExperienceSinceData($event, i)" [(ngModel)]="experienceSince[i]" #experienceSinceInput>
+              <span class="input-group-text bg-transparent border-0" id="basic-addon1"><i class="bi bi-calendar"></i></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-field">
+            <label for="name" class="form-label">Hasta</label>
+            <div class="input-group">
+              <input type="number" class="form-control bg-transparent" (change)="addExperienceUntilData($event, i)" [(ngModel)]="experienceUntil[i]" #experienceUntilInput>
+              <span class="input-group-text bg-transparent border-0" id="basic-addon1"><i class="bi bi-calendar"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-5">
+    <div class="col-12 col-md-4">
+      <button (click)="addExperience()" class="btn btn-outline-primary py-3 px-4 w-100">Agregar experiencia</button>
+    </div>
+  </div>
+
+  <p class="fw-semibold mb-4">2. Agrega información de estudios</p>
+
+  <div class="added-list">
+    <div *ngFor="let item of [].constructor(counterEducation), let i = index">
+      <div class="item mb-5">
+        <div class="icon"><img src="./assets/svg/icon-diploma.svg" alt=""></div>
+        <div class="info">
+          <p *ngIf="educationCareer[i] || educationInstitution[i]" class="text-blue">{{ educationCareer[i] }} / {{ educationInstitution[i] }}</p>
+          <p *ngIf="educationCountry[i] || educationSince[i] || educationUntil[i]">{{ educationCountry[i] }}, {{ educationSince[i] }}-{{ educationUntil[i] }}</p>
+        </div>
+      </div>
+    
+      <div class="row mb-4">
+        <div class="col-12 col-md-6 mb-4">
+          <div class="form-field">
+            <label for="career" class="form-label">Carrera o diplomado</label>
+            <input type="text" class="form-control" id="career" (change)="addEducationCareerData($event, i)" [(ngModel)]="educationCareer[i]" #educationCareerInput>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-field">
+            <label for="institution" class="form-label">Universidad</label>
+            <input type="text" class="form-select" (change)="addEducationInstitutionData($event, i)" [(ngModel)]="educationInstitution[i]" #educationInstitutionInput>     
+          </div>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-12 col-md-6 mb-4">
+          <div class="form-field">
+            <label for="education-country" class="form-label">País</label>
+            <input type="text" class="form-control" id="education-country" (change)="addEducationCountryData($event, i)" [(ngModel)]="educationCountry[i]" #educationCountryInput>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-field">
+            <label for="name" class="form-label">Desde</label>
+            <div class="input-group">
+              <input type="number" class="form-control bg-transparent" (change)="addEducationSinceData($event, i)" [(ngModel)]="educationSince[i]" #educationSinceInput>
+              <span class="input-group-text bg-transparent border-0" id="basic-addon1"><i class="bi bi-calendar"></i></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-field">
+            <label for="name" class="form-label">Hasta</label>
+            <div class="input-group">
+              <input type="number" class="form-control bg-transparent" (change)="addEducationUntilData($event, i)" [(ngModel)]="educationUntil[i]" #educationUntilInput>
+              <span class="input-group-text bg-transparent border-0" id="basic-addon1"><i class="bi bi-calendar"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div class="row mb-5">
+    <div class="col-12 col-md-4">
+      <button (click)="addEducation()" class="btn btn-outline-primary py-3 px-4 w-100">Agregar estudio</button>
+    </div>
+  </div>
+  
+  <div>
+    <div class="d-flex justify-content-end">
+      <button class="btn border py-3 px-4 me-3" [disabled]="isButtonDisabled" (click)="prevStep()">
+        Anterior
+      </button>
+      <button class="btn border py-3 px-4 me-3" [disabled]="isButtonDisabled" (click)="update()">
+        Continuar después
+      </button>
+      <button class="btn btn-primary text-white py-3 px-5" [disabled]="isButtonDisabled" (click)="nextStep()">
+        Siguiente
+      </button>
+    </div>
+  </div>
+</div>

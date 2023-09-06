@@ -1,0 +1,35 @@
+<div class="accordion-item">
+  <div class="accordion-header" [ngClass]="{'open': isOpen}" (click)="isOpen = !isOpen">
+    <div class="d-flex g-5">
+      {{dayDate}}
+      <span class="ms-3 text-primary">Incendios</span>
+    </div>
+    <span class="divider"></span>
+    <i class="bi" [ngClass]="{'bi-chevron-up': isOpen, 'bi-chevron-down': !isOpen}"></i>
+  </div>
+  <div class="accordion-collapse collapse" [ngClass]="{'show': isOpen}">
+    <div class="accordion-body">
+
+      <div class="contact-list">
+
+        <div class="user-item">
+          <div class="thumb">
+            <img [src]="requestData?.profilePic" alt="">
+          </div>
+          <div class="info">
+            <p class="m-0 fs-5 text-blue">{{requestData?.username}}</p>
+            <button
+              class="btn btn-link text-decoration-none p-0"
+              [routerLink]="[profileRoute]"
+              >
+              Ver perfil <i class="bi bi-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  
+</div>

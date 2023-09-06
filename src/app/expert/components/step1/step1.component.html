@@ -1,0 +1,76 @@
+<div class="animate__animated animate__fadeIn">
+  <h1 class="text-blue">Cuéntanos de ti</h1>
+  <p class="mb-4">Esta información hace tu perfil más personalizado y nos ayuda a conectarte con más personas</p>
+
+  <p class="text-primary mb-1">1/4</p>
+  <h6 class="text-blue mb-3">Información general</h6>
+  <div class="row">
+    <div class="col-12 col-md-4 mb-5">
+      <div class="profile-img h-100">
+        <div class="img-container">
+          <input type="file" (change)="handleFileInput($event)">
+          <img *ngIf="profilePic" [src]="profilePic" alt="Profile Picture" width="100%">
+          <img *ngIf="!profilePic" src="./assets/svg/icon-img.svg" alt="Profile Picture" height="100%">
+          <p *ngIf="!profilePic" class="mt-3">Arrastra o <span class="text-primary">selecciona</span><br /> tu foto de perfil</p>
+        </div>
+        <span class="support-format">Soporta .jpg y .png</span>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="form-field mb-5">
+        <label for="name" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="name" [(ngModel)]="username" #nameInput>
+      </div>
+
+      <div class="form-field mb-1">
+        <label for="name" class="form-label">Profesión</label>
+        <select (change)="addProfession()" class="form-select" #professionInput>
+          <option value=null selected disabled>Selecciona</option>
+          <option *ngFor="let option of professionOptions" [id]="'option-profession-' + option._id" [value]="option._id">{{ option.name }}</option>
+        </select>
+      </div>
+      <div class="mb-5 mt-2 d-flex option-cont">
+        <ng-container *ngFor="let item of profession; let i = index">
+          <div *ngIf="item" [id]="'select-profession-' + (item._id)" class="btn-primary btn selection-cont"><p class="text-p">{{ item.name }}</p><span (click)="dismiss(i, 'profession')"><i class="bi bi-x-lg"></i></span></div>
+        </ng-container>
+      </div>
+
+      <div class="form-field mb-1">
+        <label for="name" class="form-label">Universidad o institución</label>
+        <select (change)="addInstitution()" class="form-select" #institutionInput>
+          <option value=null selected disabled>Selecciona</option>
+          <option *ngFor="let option of institutionOptions" [id]="'option-institution-' + option._id" [value]="option._id">{{ option.name }}</option>
+        </select>
+      </div>
+      <div class="mb-5 mt-2 d-flex option-cont">
+        <ng-container *ngFor="let item of institution; let i = index">
+          <div *ngIf="item" [id]="'select-institution-' + (i+1)" class="btn-primary btn selection-cont"><p class="text-p">{{ item.name }}</p><span (click)="dismiss(i, 'institution')"><i class="bi bi-x-lg"></i></span></div>
+        </ng-container>
+      </div>
+
+      <div class="form-field">
+        <label for="name" class="form-label">Experiencia en</label>
+        <select (change)="addMedia()" class="form-select" #mediaInput>
+          <option value=null selected disabled>Selecciona</option>
+          <option *ngFor="let option of mediaOptions" [id]="'option-media-' + option._id" [value]="option._id">{{ option.name }}</option>
+        </select>
+      </div>
+      <div class="form-text mb-1">Selecciona los medios en los cuales tienes experiencia</div>
+      <div class="mb-5 mt-2 d-flex option-cont">
+        <ng-container *ngFor="let item of media; let i = index">
+          <div *ngIf="item" [id]="'select-media-' + (i+1)" class="btn-primary btn selection-cont"><p class="text-p">{{ item.name }}</p><span (click)="dismiss(i, 'media')"><i class="bi bi-x-lg"></i></span></div>
+        </ng-container>
+      </div>
+
+      <div class="d-flex justify-content-end">
+        <button class="btn border py-3 px-4 me-3" [disabled]="isButtonDisabled" (click)="update()">
+          Continuar después
+        </button>
+        <button class="btn btn-primary text-white py-3 px-5" [disabled]="isButtonDisabled" (click)="nextStep()">
+          Siguiente
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

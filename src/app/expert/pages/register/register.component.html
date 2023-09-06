@@ -1,0 +1,89 @@
+<div class="register-wrapper py-5 animate__animated animate__fadeIn">
+  <div class="container">
+    <div class="row justify-content-center g-0">
+      <div class="col-11 col-md-6">
+
+        <h1 class="display-3 f-prompt text-blue fw-normal mb-4">Sé parte de esta <span class="text-primary">Red de experts!</span></h1>
+        <p class="mb-5" style="line-height: 1.65em; font-size: 1.2em;">Únete a nuestra comunidad de expertos de América Latina para convertirte en líder de opinión, ser referente en tu área de expertise, respaldada por la Fundación. Podrás acceder además a formación continua, networking y diversas instancias para expresar tus opiniones y generar un impacto en la calidad de la democracia.</p>
+        <img src="./assets/images/register-img-2.png" class="img-fluid" alt="">
+
+      </div>
+
+      <div class="col-12 col-md-4 offset-md-1">
+
+        <div class="card border-0 bg-white p-3 shadow-sm rounded-3">
+          <div class="card-body" [ngClass]="{'d-none': !showCardBody}">
+            <img src="./assets/images/success-img.png" width="150px" alt="logo-getexpert">
+            <p class="my-4">Completa los siguientes datos</p>
+
+            <div class="row g-3 mb-5">
+              <div class="col">
+                <button (click)="linkedinSignUp()" class="btn w-100 btn-login-provider shadow-sm py-3">LinkedIn <img src="./assets/svg/icon-linkedin.svg" alt=""></button>
+              </div>
+              <div class="col">
+                  <button (click)="googleSignUp()" class="btn w-100 btn-login-provider shadow-sm py-3">Google <img src="./assets/svg/icon-google.svg" alt=""></button>
+              </div>
+            </div>
+
+            <div class="row mb-4">
+              <div class="col">
+                <div class="form-field">
+                  <label for="register-expert-name" class="form-label">Nombre y apellido</label>
+                  <input required type="text" class="form-control" id="register-expert-name" (input)="validateFields()">
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-4">
+              <div class="col">
+                <div class="form-field">
+                  <label for="register-expert-email" class="form-label">Correo electrónico</label>
+                  <input required type="email" class="form-control" id="register-expert-email" [(ngModel)]="usermail" (input)="validateFields()">
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-4">
+              <div class="col">
+                <div class="form-field">
+                  <label for="register-expert-phone" class="form-label">Teléfono</label>
+                  <input required type="text" class="form-control" id="register-expert-phone" (input)="validateFields()">
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-4">
+              <div class="col">
+                <div class="form-field">
+                  <label for="register-expert-password" class="form-label">Contraseña</label>
+                  <input required type="password" class="form-control" id="register-expert-password" (input)="validateFields()">
+                </div>
+              </div>
+            </div>
+
+            <i *ngIf="showMessage" class="info-expert-register">{{message}}</i>
+
+            <button class="btn btn-primary w-100 text-white py-3 mb-4" (click)="innerSignUp()" [disabled]="isButtonDisabled">
+              Registrarme <i class="bi bi-chevron-right"></i>
+            </button>
+
+            <p class="text-center mb-0">Ya tengo cuenta <a class="text-decoration-none fw-semibold open-modal-text" [routerLink]="['/login']">Iniciar sesión</a></p>
+
+          </div>
+
+          <div class="card-body" [ngClass]="{'d-none': showCardBody}">
+            <img src="./assets/images/success-img.png" width="150px" alt="logo-getexpert">
+            <h4 class="my-4">Ahora valida tu correo electrónico</h4>
+            <p>Hemos enviado un link de validación al siguiente correo: <br>
+              <span class="text-primary">{{ usermail }}</span>
+            </p>
+            <p>Por favor ingresa y sigue las instrucciones</p>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

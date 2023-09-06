@@ -1,0 +1,16 @@
+.profile-pic{
+  overflow: hidden;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-buttons{
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  button{
+    height: 20px;
+  }
+}

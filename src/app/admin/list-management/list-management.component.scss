@@ -1,0 +1,50 @@
+.card-lists {
+  background-color: white;
+  .card-elements{
+    max-height: 300px;
+    overflow-y: auto;
+  }
+}
+
+.title-add {
+  justify-content: space-between;
+  button {
+    border: none;
+    border-radius: 8px;
+    color: var(--bs-primary);
+    transition-duration: .4s;
+    padding-left: 10px;
+    padding-right: 10px;
+    &:hover {
+      color: white;
+      background-color: var(--bs-primary);
+    }
+  }
+}
+
+.input-add {
+  button {
+    border: none;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    color: var(--bs-primary);
+    transition-duration: .4s;
+    padding-left: 10px;
+    padding-right: 10px;
+    &:hover {
+      color: white;
+      background-color: var(--bs-primary);
+    }
+  }
+}
+
+.item-name {
+  transition-duration: .1s;
+  align-items: center;
+  height: 30px;
+  &:hover {
+    color: var(--bs-primary);
+    border-bottom: solid;
+    border-bottom-right-radius: 8px;
+  }
+}

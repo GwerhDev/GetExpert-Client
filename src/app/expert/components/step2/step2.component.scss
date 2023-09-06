@@ -1,0 +1,50 @@
+.selection-cont{
+  flex-basis: auto;
+  height: 25px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  border-radius: 25px;
+  font-size: small;
+  font-weight: 300;
+}
+
+.text-p {
+  text-overflow: ellipsis;
+  height: 25px;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 150px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  top:8px;
+}
+
+.option-cont{
+  overflow-x: auto;
+}
+
+.img-container {
+  overflow: hidden;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter-input{
+  width: 100%;
+  position: absolute;
+  background: transparent;
+}
+
+.selector-filter{
+  background: transparent;
+}

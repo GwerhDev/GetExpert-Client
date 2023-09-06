@@ -1,0 +1,71 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary shadow">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="http://projects.terminalkiller.site">
+      <img src="./assets/images/success-img.png" alt="logo-getexpert" height="70px">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/" >Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://projects.terminalkiller.site/#/about">Quiénes somos</a>
+        </li>
+      </ul>
+
+      <div class="d-flex align-items-center ms-auto">
+        <ul class="navbar-nav mb-2 mb-lg-0 nav-divider">
+          <li class="nav-item">
+            <button *ngIf="!isLogged" class="nav-link fw-semibold" [routerLink]="['/login']">Iniciar sesión</button>
+          </li>
+          <li class="nav-item">
+            <button *ngIf="!isLogged" class="nav-link fw-semibold" [routerLink]="['/user/register']">Registrarme</button>
+          </li>
+          <li class="nav-item">
+            <button *ngIf="!isLogged" class="nav-link fw-semibold" [routerLink]="['/expert/register']">Sé una experta</button>
+          </li>
+        </ul>
+        <button
+          *ngIf="isAdmin"
+          type="button"
+          class="btn btn-primary text-white mx-2 px-4"
+          [routerLink]="['/admin']"
+          >
+            Administrar
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-primary text-white mx-2 px-4"
+          [routerLink]="['/']"
+          >
+          Buscar experta
+        </button>
+
+        <ul class="navbar-nav mb-lg-0 d-flex align-items-center nav-divider">
+          <li *ngIf="isLogged" class="nav-item d-flex align-items-center">
+            <span class=" user-icon" [routerLink]="[userRoute]">
+              <img *ngIf="!profilePic" src="./assets/svg/icon-user.svg" alt="icon-user">
+              <img *ngIf="profilePic" [src]="profilePic" alt="Profile Picture" width="100%">
+            </span>
+          </li>
+<!--           <li *ngIf="isLogged" class="nav-item">
+            <button
+              type="button"
+              class="btn btn-link position-relative p-0"
+              [routerLink]="['/contact']"
+              >
+              <img src="./assets/svg/icon-papper-plain.svg" alt="icon">
+              <span *ngIf="newAlert" class="position-absolute bottom-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+                <span class="visually-hidden">New alerts</span>
+              </span>
+            </button>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

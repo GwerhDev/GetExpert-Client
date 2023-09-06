@@ -1,0 +1,14 @@
+.register-success-wrapper {
+  height: calc( 100vh - 65px );
+  background-color: #ffffff;
+}
+
+
+@media (max-width: 767.98px) {
+
+  .register-success-wrapper {
+    height: auto;
+  }
+
+
+}

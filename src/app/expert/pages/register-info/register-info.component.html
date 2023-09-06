@@ -1,0 +1,82 @@
+<div class="register-info-wrapper animate__animated animate__fadeIn">
+  
+  <div *ngIf="showSnack">
+    <app-snackbar [show]="showSnack" [autoClose]="true">
+      <p class="mb-0">{{messageSnack}}</p>
+    </app-snackbar>
+  </div>
+  <div class="left-wrap">
+    <div class="container h-100">
+      <div class="row justify-content-center py-5">
+        <div class="col-10">
+
+          <img src="./assets/images/success-img.png" width="120px" class="mb-5" alt="">
+
+          <ul class="register-form-list mb-5">
+            <li [ngClass]="{'active': dataActive === 1}" (click)="setStep(1)">
+              <span *ngIf="dataActive !== 1" class="me-3">1</span>
+              <img src="./assets/svg/icon-register-user.svg" class="me-3" *ngIf="dataActive === 1" alt="icon"> Información general
+            </li>
+            <li [ngClass]="{'active': dataActive === 2}" (click)="setStep(2)">
+              <span *ngIf="dataActive !== 2" class="me-3">2</span>
+              <img src="./assets/svg/icon-register-bookmark.svg" class="me-3" *ngIf="dataActive === 2" alt="icon"> Expertise
+            </li>
+            <li [ngClass]="{'active': dataActive === 3}" (click)="setStep(3)">
+              <span *ngIf="dataActive !== 3" class="me-3">3</span>
+              <img src="./assets/svg/icon-register-book.svg" class="me-3" *ngIf="dataActive === 3" alt="icon"> Experiencia y estudio
+            </li>
+            <li [ngClass]="{'active': dataActive === 4}" (click)="setStep(4)">
+              <span *ngIf="dataActive !== 4" class="me-3">4</span>
+              <img src="./assets/svg/icon-register-phone.svg" class="me-3" *ngIf="dataActive === 4" alt="icon"> Información de contacto
+            </li>
+            <li [ngClass]="{'active': dataActive === 5}" (click)="setStep(5)">
+              <span *ngIf="dataActive !== 5" class="me-3">5</span>
+              <img src="./assets/svg/icon-register-clipboard-list.svg" class="me-3" *ngIf="dataActive === 5" alt="icon"> Evidencia
+            </li>
+          </ul>
+
+          <div class="card border-0 bg-primary text-white">
+            <div class="card-body px-5">
+              <div class="d-flex my-4">
+                <img src="./assets/svg/icon-comment.svg" width="60" class="me-4" alt="icono">
+                <p class="card-text fw-medium">Si tienes alguna pregunta sobre el proceso de registro, escríbenos aquí</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-wrap">
+    <div class="container h-100">
+
+      <div class="row justify-content-center py-5">
+        <div class="col-10">
+
+          <span [ngSwitch]="dataActive">
+            <ng-container *ngSwitchCase="1">
+              <app-step1 [userData]="userData" (dataChanged)="dataChanged($event)" (onNextStep)="nextStep($event)"></app-step1>
+            </ng-container>
+            <ng-container *ngSwitchCase="2">
+              <app-step2 [userData]="userData" (onNextStep)="nextStep($event)" (onPrevStep)="prevStep()"></app-step2>
+            </ng-container>
+            <ng-container *ngSwitchCase="3">
+              <app-step3 [userData]="userData" (onNextStep)="nextStep($event)" (onPrevStep)="prevStep()"></app-step3>
+            </ng-container>
+            <ng-container *ngSwitchCase="4">
+              <app-step4 [userData]="userData" (onNextStep)="nextStep($event)" (onPrevStep)="prevStep()"></app-step4>
+            </ng-container>
+            <ng-container *ngSwitchCase="5">
+              <app-step5 [userData]="userData" (onNextStep)="nextStep($event)" (onPrevStep)="prevStep()"></app-step5>
+            </ng-container>
+            <ng-container *ngSwitchDefault></ng-container>
+          </span>
+
+          </div>
+      </div>
+
+    </div>
+  </div>
+</div>

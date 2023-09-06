@@ -1,0 +1,49 @@
+<div class="animate__animated animate__fadeIn">
+  <h1 class="text-blue">Expertise</h1>
+  <p class="mb-4">Esta información hace tu perfil mas personalizado y nos ayuda a conectarte con más personas</p>
+
+  <p class="fw-semibold">Ingresa tus areas de expertise</p>
+  <div class="form-field mb-1">
+    <label for="name" class="form-label">Area</label>
+    <select (change)="addArea()" class="form-select" #expertiseAreaInput>
+      <option value=null selected disabled>Selecciona</option>
+      <option *ngFor="let option of areaOptions" [id]="'option-area-' + option._id" [value]="option._id">{{ option.name }}</option>
+    </select>
+  </div>
+  <div class="mb-5 mt-2 d-flex option-cont">
+    <ng-container *ngFor="let item of area; let i = index">
+      <div *ngIf="item" [id]="'select-area-' + (i+1)" class="btn-primary btn selection-cont"><p class="text-p">#{{ item.name }}</p><span (click)="dismiss(i)"><i class="bi bi-x-lg"></i></span></div>
+    </ng-container>
+  </div>
+  <p class="fw-semibold">2. Agrega una frase que resuma tu forma de ser y tu expertise</p>
+  <div class="form-field mb-5">
+    <label for="expertise-name" class="form-label">Nombre</label>
+    <input type="text" class="form-control" id="expertise-name" (change)="addName()" [(ngModel)]="name" #expertiseNameInput>
+  </div>
+  <div class="form-field mb-4">
+    <label for="expertise-bio" class="form-label">Biografia</label>
+    <input type="text" class="form-control" id="expertise-bio" (change)="addBio()" [(ngModel)]="bio" #expertiseBioInput>
+  </div>
+
+  <p>
+    Aquí te dejamos algunos consejos para ingresar tu biografía:
+  </p>
+  <ol>
+    <li>Asegúrate de que tu biografía sea concisa y enfocada. Enfócate en lo más relevante y destacado de tu carrera o experiencia profesional.</li>
+    <li>Incluye detalles específicos sobre tus habilidades, experiencia y logros. Esto permitirá que otros usuarios conozcan tu experiencia y puedan contactarte si necesitan ayuda o asesoramiento.</li>
+    <li>Asegúrate de revisar la ortografía y la gramática de tu biografía. Una biografía bien escrita te ayudará a destacar entre otros usuarios.</li>
+    <li>Si necesitas inspiración, busca ejemplos de biografías en línea. Esto te dará una idea de cómo debes estructurar tu biografía y qué información incluir.</li>
+  </ol>
+
+  <div class="d-flex justify-content-end">
+    <button class="btn border py-3 px-4 me-3" [disabled]="isButtonDisabled" (click)="prevStep()">
+      Anterior
+    </button>
+    <button class="btn border py-3 px-4 me-3" [disabled]="isButtonDisabled" (click)="update()">
+      Continuar después
+    </button>
+    <button class="btn btn-primary text-white py-3 px-5" [disabled]="isButtonDisabled" (click)="nextStep()">
+      Siguiente
+    </button>
+  </div>
+</div>

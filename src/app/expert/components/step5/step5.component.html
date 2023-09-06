@@ -1,0 +1,75 @@
+<div class="animate__animated animate__fadeIn">
+  <h1 class="text-blue">Evidencias</h1>
+  <p class="mb-4">Esta información hace tu perfil mas personalizado y nos ayuda a conectarte con más personas</p>
+
+  <h6 class="text-blue mb-3">Información general</h6>
+  <div class="row">
+    <div class="row border-dashed mb-5 evidence-input-container" *ngFor="let item of [].constructor(counterEvidence), let i = index">
+      <div class="col-12 col-md-4 mb-5 evidence-input-container">
+        <div class="profile-img h-100" style="max-height: 230px;">
+          <div class="img-container">
+            <input type="file" (change)="handleFileInput($event, i)">
+            <img *ngIf="!evidencePhoto[i]" src="./assets/svg/icon-img.svg" alt="icon-image">
+            <img *ngIf="evidencePhoto[i]" [src]="evidencePhoto[i]" alt="Evidence Picture" width="100%">
+            <p *ngIf="!evidencePhoto[i]" class="mt-3">Arrastra o <span class="text-primary">selecciona</span><br /> portada de la evidencia</p>
+          </div>
+          <span class="support-format">Soporta .jpg y .png</span>
+        </div>
+      </div>
+  
+      <div class="col evidence-input-container">
+        <div class="form-field mb-2">
+          <label for="name" class="form-label">Tipo de evidencia</label>
+          <select class="form-select" (change)="addEvidenceTypeData($event, i)" [(ngModel)]="evidenceType[i]" #evidenceTypeInput>
+            <option selected disabled>Selecciona</option>
+            <option *ngFor="let option of evidenceOptions" [value]="option">{{ option }}</option>
+          </select>
+        </div>
+        <div class="form-text mb-5">Selecciona el tipo de archivo que cargaras</div>
+  
+        <div class="form-field mb-2">
+          <label for="name" class="form-label">Medio</label>
+          <select class="form-select" (change)="addEvidenceMediaData($event, i)" [(ngModel)]="evidenceMedia[i]" #evidenceMediaInput>
+            <option selected>Selecciona un medio</option>
+            <option *ngFor="let option of mediaOptions" [value]="option._id">{{ option.name }}</option>
+          </select>
+        </div>
+        <div class="form-text mb-5">Selecciona donde...</div>
+  
+        <div class="form-field mb-5">
+          <label for="title" class="form-label">Título</label>
+          <input type="text" (change)="addEvidenceTitleData($event, i)" class="form-control" id="title" [(ngModel)]="evidenceTitle[i]" #evidenceTitleInput>
+        </div>
+  
+        <div class="form-field">
+          <label for="description" class="form-label">Descripción</label>
+          <textarea  (change)="addEvidenceDescriptionData($event, i)" class="form-control" id="description" rows="3" [(ngModel)]="evidenceDescription[i]" #evidenceDescriptionInput></textarea>
+        </div>
+        <div class="form-text mb-5">Descripción de le evidencia que estas cargando</div>
+  
+        <div class="form-field mb-5">
+          <label for="url" class="form-label">link</label>
+          <input type="text" (change)="addEvidenceUrlData($event, i)" class="form-control" id="url" [(ngModel)]="evidenceUrl[i]" #evidenceUrlInput>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-5 add-evidence evidence-input-container">
+      <div class="col-12 col-md-5 evidence-input-container">
+        <button (click)="addEvidence()" class="btn btn-outline-primary py-3 px-4 w-100">Agregar evidencia</button>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn border py-3 px-4 me-3" [disabled]="isButtonDisabled" (click)="prevStep()">
+        Anterior
+      </button>
+      <button class="btn border py-3 px-4 me-3" [disabled]="isButtonDisabled" (click)="update()">
+        Continuar después
+      </button>
+      <button class="btn btn-primary text-white py-3 px-5" [disabled]="isButtonDisabled" (click)="nextStep()">
+        Finalizar
+      </button>
+    </div>
+  </div>
+</div>

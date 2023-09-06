@@ -1,0 +1,40 @@
+<div>
+  <h4>Manejar listas</h4>
+  <div class="card mb-3 p-3 card-lists" *ngFor="let elem of list">
+    <div class="d-flex title-add mb-3">
+      <h5>{{elem?.name}}</h5>
+      <button *ngIf="!elem.addActive" (click)="activateInput(elem)"> editar </button>
+      <button *ngIf="elem.addActive" (click)="cancelInput(elem)"> cancelar </button>
+    </div>
+    <div class="d-flex input-add mb-3" *ngIf="elem.addActive && elem.schema !== 'commune'">
+      <input type="text" [(ngModel)]="inputValue">
+      <button (click)="addInput(elem.schema)">agregar</button>
+    </div>
+    <div *ngIf="elem.schema !== 'commune'" class="card-elements">
+      <div *ngFor="let item of elem?.list">
+        <div class="d-flex title-add mb-1 item-name">
+          {{item.name}}
+          <button (click)="deleteItem(elem.schema, item._id)" *ngIf="elem.addActive">x</button>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex input-add mb-3" *ngIf="elem.addActive && elem.schema === 'commune'">
+      <input type="text" [(ngModel)]="inputValue">
+      <div *ngIf="elem.addActive">
+        <select class="form-select" (change)="handleRegion($event)">
+          <option value=null disabled selected>Elige una región</option>
+          <option *ngFor="let region of region.list" [value]="region._id">{{ region.name }}</option>
+        </select>
+      </div>
+      <button (click)="addCommuneInput()">agregar</button>
+    </div>
+    <div *ngIf="elem.schema === 'commune'" class="card-elements">
+      <div *ngFor="let item of elem?.list">
+        <div class="d-flex title-add mb-1 item-name">
+          {{item.name}}
+          <button (click)="deleteCommuneItem(item._id)" *ngIf="elem.addActive">x</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,93 @@
+<div class="animate__animated animate__fadeIn">
+  <h1 class="text-blue">Información de contacto</h1>
+  <p class="mb-4">Esta información hace tu perfil mas personalizado y nos ayuda a conectarte con más personas</p>
+
+  <p class="fw-semibold mb-4">Datos de contacto</p>
+
+  <div class="row mb-2">
+    <div class="col-12 col-md-6 mb-4">
+      <div class="form-field">
+        <label for="contact-email" class="form-label">Correo electrónico</label>
+        <input type="text" disabled class="form-control" id="contact-email" [(ngModel)]="email" #emailInput>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="form-field">
+        <label for="contact-phone" class="form-label">Celular</label>
+        <input type="text" class="form-control" id="contact-phone" (change)="onChange()" [(ngModel)]="phone" #phoneInput>
+      </div>
+    </div>
+  </div>
+
+  <p class="mb-5"><small>Mediante estos canales te daremos aviso en caso de que alguien quiera comunicarse contigo.</small></p>
+
+  <p class="fw-semibold mb-4">Ubicación</p>
+
+  <div class="row mb-2">
+    <div class="col-12 col-md-6 mb-4">
+      <div class="form-field">
+        <label class="form-label">Región</label>
+        <select class="form-select" (change)="regionSelected()" [(ngModel)]="idRegion" #regionInput>
+          <option value='' selected>Selecciona una región</option>
+          <option *ngFor="let option of regionOptions" [id]="'select-region' + option?._id" [value]="option?._id">{{ option?.name }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="form-field">
+        <label class="form-label">Comuna</label>
+        <select class="form-select" (change)="communeSelected()" [(ngModel)]="idCommune" #communeInput>
+          <option value='' selected>Selecciona una comuna</option>
+          <option *ngFor="let option of communeOptions" [id]="'select-commune' + option?._id" [value]="option?._id">{{ option?.name }}</option>
+        </select>
+      </div> 
+    </div>
+  </div>
+
+  <p class="mb-5"><small>Es importante que agregues información precisa sobre tu ubicación para asegurarte de que otros usuarios puedan encontrarte y contactarte si es necesario.</small></p>
+
+  <p class="fw-semibold mb-4">Redes sociales</p>
+
+  <div class="row mb-4">
+    <div class="col-12 col-md-6 mb-4">
+      <div class="form-field">
+        <label for="linkedin" class="form-label">LinkedIn</label>
+        <input type="text" class="form-control" id="linkedin" (change)="onChange()" [(ngModel)]="networkLinkedIn" #networkLinkedInInput>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="form-field">
+        <label for="twitter" class="form-label">Twitter</label>
+        <input type="text" class="form-control" id="twitter" (change)="onChange()" [(ngModel)]="networkTwitter" #networkTwitterInput>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col-12 col-md-6 mb-4">
+      <div class="form-field">
+        <label for="instagram" class="form-label">Instagram</label>
+        <input type="text" class="form-control" id="instagram" (change)="onChange()" [(ngModel)]="networkInstagram" #networkInstagramInput>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="form-field">
+        <label for="medium" class="form-label">Medium</label>
+        <input type="text" class="form-control" id="medium" (change)="onChange()" [(ngModel)]="networkMedium" #networkMediumInput>
+      </div>
+    </div>
+  </div>
+
+  <p class="mb-5"><small>Es importante que agregues información precisa sobre tu ubicación para asegurarte de que otros usuarios puedan encontrarte y contactarte si es necesario.</small></p>
+
+  <div class="d-flex justify-content-end">
+    <button class="btn border py-3 px-4 me-3" [disabled]="isButtonDisabled" (click)="prevStep()">
+      Anterior
+    </button>
+    <button class="btn border py-3 px-4 me-3" [disabled]="isButtonDisabled" (click)="update()">
+      Continuar después
+    </button>
+    <button class="btn btn-primary text-white py-3 px-5" [disabled]="isButtonDisabled" (click)="nextStep()">
+      Siguiente
+    </button>
+  </div>
+</div>

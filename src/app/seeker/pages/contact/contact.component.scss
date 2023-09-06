@@ -1,0 +1,39 @@
+.contact-wrapper {
+  background-color: rgba($color: #ffffff, $alpha: 1.0);
+  display: flex;
+  height: calc( 100vh - 65px );
+  overflow: auto;
+  .left-side {
+    width: 65%;
+    padding: 4em 0;
+    overflow: auto;
+  }
+  .right-side {
+    width: 35%;
+    right: 0;
+    position: fixed;
+    padding: 4em 0;
+    flex-grow: 1;
+    height: 100%;
+    background-color: #F2F5F9;
+  }
+}
+
+@media (max-width: 767.98px) {
+
+  .contact-wrapper {
+    flex-direction: column;
+    height: auto;
+    .left-side {
+      height: auto;
+      width: 100%;
+    }
+    .right-side {
+      position: relative;
+      padding: 3em 0;
+      height: auto;
+      width: 100%;
+    }
+  }
+
+}

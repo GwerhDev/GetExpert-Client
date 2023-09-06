@@ -1,0 +1,106 @@
+<div class="row align-items-center mb-5">
+  <div class="col">
+    <h3>Datos personales</h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12 col-md-10">
+
+    <div class="card bg-white border-0 p-4">
+      <div class="card-body">
+
+        <p class="card-title text-blue mb-4">Información de contacto</p>
+
+        <div class="row mb-4 g-5 mb-5">
+          <div class="col-12 col-md-5">
+            <div class="profile-img profile-cont img-cont">
+              <img *ngIf="!profilePic" src="./assets/svg/icon-img.svg" alt="icon-image" height="100%">
+              <img *ngIf="profilePic" [src]="profilePic" alt="Profile Picture" width="100%">
+              <div *ngIf="editionActive" class="edit-img-cont">
+                <p *ngIf="editionActive" class="mt-3">Arrastra o <span class="text-primary">selecciona</span><br/> tu foto de perfil</p>
+                <div class="upload-cont">
+                  <button *ngIf="editionActive" class="btn btn-outline-primary mt-2 btn-sm py-0">
+                    <input type="file" (change)="handlePicFileInput($event)" [disabled]="!editionActive">
+                    CARGAR
+                  </button>
+                  <span *ngIf="editionActive" class="support-format">Soporta .jpg y .png</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col">
+            <div class="mb-1 d-flex edit-button">
+              <button *ngIf="!editionActive" (click)="editInfo()" class="btn btn-outline-primary btn-sm py-0">EDITAR</button>
+              <button *ngIf="editionActive" (click)="save()" class="btn btn-outline-primary btn-sm py-0">GUARDAR CAMBIOS</button>
+              <button *ngIf="editionActive" (click)="editCancel()" class="btn btn-outline-primary btn-sm py-0">CANCELAR</button>
+            </div>
+            <div class="form-field mb-4">
+              <label for="name" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="name" [value]="username" [disabled]="!editionActive" #usernameEdit>
+            </div>
+
+            <div class="form-field mb-4">
+              <label for="email" class="form-label">Correo electrónico</label>
+              <input type="text" class="form-control" id="email" [value]="email" disabled>
+            </div>
+
+            <div class="form-field">
+              <label for="phone" class="form-label">Telefono de contacto</label>
+              <input type="text" class="form-control" id="phone" [value]="phone" [disabled]="!editionActive" #phoneEdit>
+            </div>
+          </div>
+        </div>
+
+<!--         <p class="card-title text-blue fw-semibold mb-4">Medio que representas</p>
+
+        <div class="form-field mb-5">
+          <label for="name" class="form-label">Medio</label>
+          <select class="form-select">
+            <option selected>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div> -->
+
+        <p class="card-title text-blue mb-3 fw-semibold">Contraseña</p>
+        <div *ngIf="showResetInputs" class="password-input-container">
+          <div class="d-flex">
+            <div class="form-field mb-4 password-input">
+              <label class="form-label" for="current-password">Contraseña actual</label>
+              <input class="form-control" name="current-password" type="password" (input)="currentPasswordHandle($event)">
+            </div>
+            <i class="text-error"></i>
+          </div>
+          <div class="d-flex">
+            <div class="form-field mb-4 password-input">
+              <label class="form-label" for="new-password">Nueva contraseña</label>
+              <input class="form-control" name="new-password" type="password" (input)="newPasswordHandle($event)">
+            </div>
+            <i class="text-error"></i>
+          </div>
+        </div>
+        <button *ngIf="!showResetInputs" (click)="openPasswordReset()" class="btn border py-3 px-5 mb-5 rounded-3 text-primary">Cambiar contraseña</button>
+        <div class="info-message mb-3" *ngIf="showMessage">
+          <i [class]="color">{{message}}</i>
+        </div>
+        <div class="button-container">
+          <button *ngIf="showResetInputs" (click)="passwordUpdate()" [disabled]="isButtonDisabled" class="btn border py-3 px-5 mb-5 rounded-3 text-primary">Actualizar contraseña</button>
+          <button *ngIf="showResetInputs" (click)="closePasswordReset()" class="btn border py-3 px-5 mb-5 rounded-3 cancel-button">Cancelar</button>
+        </div>
+
+        <p class="card-title text-blue fw-semibold mb-3">Cerrar sesión</p>
+        <button class="btn border py-3 px-5 mb-5 rounded-3" (click)="logout()">Cerrar sesión</button>
+
+<!--         <p class="card-title text-blue fw-semibold mb-3">Borrar cuenta</p>
+        <p class="mb-4">Si borras tu cuenta perderás toda tu información de búsquedas y expertos contactadas.</p>
+        <button class="btn border py-3 px-5 mb-5 rounded-3">Borrar cuenta</button>
+ -->
+
+      </div>
+    </div>
+
+  </div>
+</div>

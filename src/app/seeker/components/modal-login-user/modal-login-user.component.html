@@ -1,0 +1,82 @@
+<app-modal-password-recovery
+  [isOpen]="toggleRecoveryModal"
+  (onDismiss)="toggleRecoveryModal = false"
+></app-modal-password-recovery>
+<div
+  class="modal fade"
+  tabindex="-1"
+  [ngClass]="{'show': isOpen}"
+  [ngStyle]="{'display': isOpen ? 'block' : 'none'}"
+  >
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 p-4 pt-0">
+      <div class="modal-header border-0">
+        <h1
+          class="modal-title fs-5 text-primary pt-5"
+          (click)="isOpen = true"
+        >
+          Para continuar debes iniciar sesión
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="dismiss()"
+          ></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-2">
+          <div class="col">
+            <button (click)="linkedinLogIn()" class="btn w-100 btn-login-provider">LinkedIn <img src="./assets/svg/icon-linkedin.svg" alt=""></button>
+          </div>
+          <div class="col">
+            <button (click)="googleLogIn()" class="btn w-100 btn-login-provider">Google <img src="./assets/svg/icon-google.svg" alt=""></button>
+          </div>
+        </div>
+
+        <div class="crosstext">
+          <span>o continua con tu correo</span>
+        </div>
+
+
+        <div class="row mb-2">
+          <div class="col">
+            <div class="form-field mb-3">
+              <label for="login-modal-email" class="form-label">Correo electrónico</label>
+              <input required type="text" class="form-control" id="login-modal-email" (input)="validateFields()">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="form-field mb-2">
+              <label for="login-modal-password" class="form-label">Contraseña</label>
+              <input required type="password" class="form-control" id="login-modal-password" (input)="validateFields()">
+            </div>
+          </div>
+        </div>
+
+        <div class="text-end mb-3">
+          <button (click)="displayRecovery()" type="button" class="btn btn-link text-decoration-none fw-semibold">Olvidé mi contraseña</button>
+        </div>
+        <div *ngIf="showMessage" class="login-info-cont"><i>{{message}}</i></div>
+        <button (click)="innerLogIn()" class="btn btn-primary w-100 text-white py-3" [disabled]="isButtonDisabled">
+          Iniciar sesión
+        </button>
+
+        <p
+          class="mt-4 mb-0 d-flex justify-content-center align-items-center">
+          No tengo cuenta
+          <button
+            (click)="dismiss()"
+            type="button"
+            [routerLink]="['/user/register']"
+            class="btn text-decoration-none fw-semibold p-0 ps-1 text-primary"
+          >
+            Registrarme
+          </button>
+        </p>
+
+      </div>
+    </div>
+  </div>
+</div>

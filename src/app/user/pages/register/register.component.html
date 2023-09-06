@@ -1,0 +1,162 @@
+<!-- <app-modal-login-user
+  [isOpen]="toggleLoginModal"
+  (onDismiss)="toggleLoginModal = false"
+  ></app-modal-login-user>
+
+ -->
+<app-navbar-layout>
+  <div class="py-5 animate__animated animate__fadeIn">
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-12 col-md-6">
+
+          <div class="banner-fixed">
+            <div class="banner-wrapper">
+              <div class="banner-register">
+                <img src="./assets/images/register-img.png" alt="imagen">
+                <img src="./assets/images/circle.png" class="circle" alt="imagen">
+                <span class="image-shadow"></span>
+              </div>
+              <ng-container *ngIf="!registerSuccess; else successText">
+                <h1 class="display-3 text-blue fw-normal f-prompt">¡Regístrate ahora y únete a <span class="text-primary">nuestra comunidad!</span></h1>
+                <p>Nuestra comunidad cuenta con una amplia variedad de expertos en áreas como negocios, tecnología, finanzas, ciencias, y más.</p>
+              </ng-container>
+              <ng-template #successText>
+                <h1 class="display-3 text-blue fw-normal f-prompt">¡Gracias por unirte a <span class="text-primary">nuestra comunidad!</span></h1>
+                <p>Al ser parte de la iniciativa GetExpert estás demostrando el compromiso de tu institución con la igualdad de género y la diversidad de perspectivas. ¡Construyamos juntos una sociedad más justa!</p>
+              </ng-template>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-12 col-md-4 offset-md-1">
+
+          <div class="card border-0 bg-white p-3 shadow-sm rounded-3">
+            <div class="card-body" [ngClass]="{'d-none': showCardBody}">
+              <img src="./assets/images/success-img.png" width="150px" alt="logo-getexpert">
+              <h4 class="my-4">Ahora valida tu correo electrónico</h4>
+              <p>Hemos enviado un link de validación al siguiente correo: <br>
+                <span class="text-primary">{{ email }}</span>
+              </p>
+              <p>Por favor ingresa y sigue las instrucciones</p>
+  
+            </div>
+            <div class="card-body" [ngClass]="{'d-none': !showCardBody}">
+
+              <ng-container *ngIf="!registerSuccess; else elseTemplate">
+
+                <img src="./assets/images/success-img.png" width="150" alt="logo-getexpert">
+                <p class="my-4">Completa los siguientes datos</p>
+
+                <div class="row g-3 mb-5">
+                  <div class="col">
+                    <button (click)="linkedinSignUp()" class="btn w-100 btn-login-provider shadow-sm py-3">
+                      LinkedIn 
+                      <img src="./assets/svg/icon-linkedin.svg" alt="">
+                    </button>
+                  </div>
+                  <div class="col">
+                    <button (click)="googleSignUp()" class="btn w-100 btn-login-provider shadow-sm py-3">
+                        Google 
+                        <img src="./assets/svg/icon-google.svg" alt="">
+                    </button>
+                  </div>
+                </div>
+
+                <div class="row mb-4">
+                  <div class="col">
+                    <div class="form-field">
+                      <label for="signup-user-name" class="form-label">Nombre y apellido</label>
+                      <input required type="text" class="form-control" id="signup-user-name" (input)="validateFields()">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-4">
+                  <div class="col">
+                    <div class="form-field">
+                      <label for="signup-user-email" class="form-label">Correo electrónico</label>
+                      <input required type="email" class="form-control" id="signup-user-email" (input)="validateFields()">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-4">
+                  <div class="col">
+                    <div class="form-field">
+                      <label for="signup-user-phone" class="form-label">Teléfono</label>
+                      <input required type="text" class="form-control" id="signup-user-phone" (input)="validateFields()">
+                    </div>
+                  </div>
+                </div>
+
+<!--                 <div class="row mb-4">
+                  <div class="col">
+                    <div class="form-field">
+                      <label for="media" class="form-label">Medio</label>
+                      <input type="text" class="form-control" id="media">
+                    </div>
+                  </div>
+                </div> -->
+
+                <div class="row mb-4">
+                  <div class="col">
+                    <div class="form-field">
+                      <label for="signup-user-password" class="form-label">Contraseña</label>
+                      <input type="password" class="form-control" id="signup-user-password" (input)="validateFields()">
+                    </div>
+                  </div>
+                </div>
+
+                <i *ngIf="showMessage" class="info-user-register">{{message}}</i>
+                <button class="btn btn-primary w-100 text-white py-3" (click)="innerSignUp()" [disabled]="isButtonDisabled">
+                  Registrarme <i class="bi bi-chevron-right"></i>
+                </button>
+                <p class="text-center mb-0 mt-4">Ya tengo cuenta <a class="text-decoration-none fw-semibold open-modal-text" [routerLink]="['/login']">Iniciar sesión</a></p>
+
+              </ng-container>
+
+              <ng-template #elseTemplate>
+
+                <div class="text-center px-4">
+                  <img src="./assets/images/success-img.png" width="120px" alt="">
+                  <h1 class="text-blue mb-3">¡Perfil creado con éxito!</h1>
+                  <p>Recuerda que podrás revisar tu historial de búsquedas y contactos que has hecho</p>
+                </div>
+
+              </ng-template>
+
+            </div>
+
+          </div>
+
+          <button class="btn btn-primary w-100 text-white py-3 mt-4" *ngIf="registerSuccess" [routerLink]="[redirectionRoute]">
+            Ver perfil <i class="bi bi-chevron-right"></i>
+          </button>
+
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <!-- <div class="container border border-danger"> -->
+  <!-- <div class="row justify-content-center border">
+      <div class="col-12 col-md-6 border">
+
+
+
+      </div>
+
+      <div class="col-12 col-md-4 offset-md-1">
+
+
+      </div>
+    </div> -->
+  <!-- </div> -->
+
+</app-navbar-layout>
