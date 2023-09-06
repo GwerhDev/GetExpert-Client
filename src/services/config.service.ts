@@ -13,7 +13,7 @@ export class ConfigService {
   getApi() {
     var api: string = ''
     if(this.production) {
-      api = 'https://hm-api.fly.dev';
+      api = 'https://getexpert-api.fly.dev';
       return api;
     } else { 
       api = 'http://localhost:8080';
