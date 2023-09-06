@@ -4,11 +4,18 @@
   top: 0;
   z-index: 9;
   height: 65px;
+  background-color: rgb(108, 125, 143);
+  color: white;
   li {
     padding-left: .5em;
     padding-right: .5em;
+    color: white;
     a {
       font-weight: 600;
+      color: white;
+      &:hover {
+        color: #D6D6D6;
+      }
     }
   }
 }
@@ -34,7 +41,6 @@
   }
 }
 
-
 .user-icon {
   width: 32px;
   height: 32px;
@@ -47,5 +53,14 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
+  }
+}
+
+.nav-item {
+  button {
+    color: white;
+    &:hover {
+      color: #D6D6D6;
+    }
   }
 }
